@@ -32,6 +32,18 @@ app.use(routes);
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI);
 
+var dataBase = mongoose.connection;
+
+dataBase.on('error', function(err) {
+  console.log('Mongoose Error:' , err);
+});
+
+dataBase.once('open', function() {
+  console.log('Mongoose connection successful.');
+});
+
+
+
 
 // Start the server
 app.listen(PORT, function() {
